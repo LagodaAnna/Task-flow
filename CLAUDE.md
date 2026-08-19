@@ -110,6 +110,8 @@ Create a separate component when it:
 - is reused
 - has its own responsibility
 - makes a parent component substantially easier to understand
+- use one-folder-per-component structure consistently
+  , `src/components/<Name>/<Name>.tsx`.
 
 Do not split components mechanically.
 
@@ -181,16 +183,26 @@ unless the current task requires it.
 
 ## Verification
 
-After implementation, run the project's available verification commands.
+After completing any implementation task, always run:
 
-At minimum, when available:
+- `npm run lint`
+- `npm run build`
+- `npm run test:run`
 
-npm run lint
-npm run build
+All three checks must pass before considering the task complete.
 
-If tests exist and are relevant, run them as well.
+If a check fails:
 
-Do not claim that a check passed unless it was actually executed successfully.
+- investigate and fix failures caused by the current changes;
+- do not suppress errors or weaken tests just to make the checks pass;
+- report any failure that cannot be resolved without changing the requested scope.
+
+When implementing or changing user-facing behavior:
+
+- add or update relevant tests when appropriate;
+- test observable behavior rather than implementation details;
+- prefer accessible queries such as `getByRole`;
+- do not add snapshot tests unless explicitly requested.
 
 After verification, report:
 
