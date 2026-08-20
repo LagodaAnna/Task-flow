@@ -1,5 +1,6 @@
 import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
+import Stats from './components/Stats/Stats'
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <Sidebar />
       <div className="flex flex-1 flex-col gap-6">
         <Header />
+        <Stats />
       </div>
     </div>
   )
