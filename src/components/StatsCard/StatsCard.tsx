@@ -8,9 +8,9 @@ type StatsCardProps = {
 };
 
 const chipStyles: Record<StatAccent, string> = {
-  primary: "bg-primary-soft",
-  progress: "bg-status-progress-bg",
-  done: "bg-status-done-bg",
+  primary: "before:bg-primary-soft",
+  progress: "before:bg-status-progress-bg",
+  done: "before:bg-status-done-bg",
 };
 
 const valueStyles: Record<StatAccent, string> = {
@@ -22,11 +22,8 @@ const valueStyles: Record<StatAccent, string> = {
 function StatsCard({ label, value, accent, className = "" }: StatsCardProps) {
   return (
     <div
-      className={`rounded-[14px] border border-border bg-surface p-[18px] lg:grid lg:grid-cols-[2.5rem_1fr] lg:items-center lg:gap-x-[18px] lg:rounded-lg ${className}`}
+      className={`rounded-[14px] border border-border bg-surface p-[18px] before:hidden before:size-10 before:rounded-md before:content-[''] lg:grid lg:grid-cols-[2.5rem_1fr] lg:items-center lg:gap-x-[18px] lg:rounded-lg lg:before:col-start-1 lg:before:row-span-2 lg:before:block ${chipStyles[accent]} ${className}`}
     >
-      <div
-        className={`col-start-1 row-span-2 hidden size-10 rounded-md lg:block ${chipStyles[accent]}`}
-      />
       <dt className="text-xs font-medium text-text-muted lg:col-start-2">{label}</dt>
       <dd className={`text-xl font-bold lg:col-start-2 ${valueStyles[accent]}`}>{value}</dd>
     </div>
