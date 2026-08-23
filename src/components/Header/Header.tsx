@@ -38,7 +38,7 @@ function Header() {
           </p>
         </div>
         <div className="hidden lg:inline-flex">
-          <Button variant="primary" className="h-11 cursor-pointer px-4">
+          <Button variant="primary" className="h-11 px-4">
             <PlusIcon aria-hidden="true" className="size-4" />
             Add task
           </Button>

@@ -2,6 +2,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import Stats from './components/Stats/Stats'
 import TaskFilters from './components/TaskFilters/TaskFilters'
+import Tasks from './components/Tasks/Tasks'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <main className="flex flex-col gap-6">
           <Stats />
           <TaskFilters />
+          <Tasks />
         </main>
       </div>
     </div>

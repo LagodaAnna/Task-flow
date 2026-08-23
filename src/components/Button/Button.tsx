@@ -21,7 +21,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`inline-flex items-center justify-center gap-1 rounded-md text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-1 rounded-md text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer ${variantStyles[variant]} ${className}`}
       {...props}
     />
   );
