@@ -10,7 +10,7 @@ function App() {
       <Sidebar />
       <div className="flex flex-1 flex-col gap-6">
         <Header />
-        <main className="flex flex-col gap-6">
+        <main className="flex flex-1 flex-col gap-6">
           <Stats />
           <TaskFilters />
           <Tasks />
