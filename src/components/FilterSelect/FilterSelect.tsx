@@ -16,7 +16,7 @@ function FilterSelect({ label, id, name, options }: FilterSelectProps) {
       <select
         id={id}
         name={name}
-        className="h-10 w-full appearance-none truncate rounded-[10px] border border-border bg-surface pl-3 pr-8 text-xs font-medium text-text lg:h-11 lg:w-[156px] lg:rounded-md lg:text-sm"
+        className="h-10 w-full appearance-none truncate rounded-[10px] border border-border bg-surface pl-3 pr-8 text-xs font-medium text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:h-11 lg:w-[156px] lg:rounded-md lg:text-sm"
       >
         {options.map((option) => (
           <option key={option} value={option}>
