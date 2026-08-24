@@ -27,11 +27,13 @@ describe('Tasks', () => {
     })
   })
 
-  it('provides an accessible "Task actions" control for every task', () => {
+  it('provides an accessible actions control for every task', () => {
     render(<Tasks />)
 
-    expect(
-      screen.getAllByRole('button', { name: 'Task actions' }).length,
-    ).toBeGreaterThanOrEqual(TASK_TITLES.length)
+    TASK_TITLES.forEach((title) => {
+      expect(
+        screen.getAllByRole('button', { name: `Actions for ${title}` }).length,
+      ).toBeGreaterThan(0)
+    })
   })
 })

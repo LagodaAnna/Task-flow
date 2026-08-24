@@ -9,7 +9,9 @@ function EmptyState() {
 
       <div className="flex flex-col gap-1">
         <h2 className="text-xl font-bold text-text">No tasks yet</h2>
-        <p className="text-sm text-text-muted">Create your first task to get started.</p>
+        <p className="text-sm text-text-muted">
+          Create your first task to get started.
+        </p>
       </div>
 
       <Button variant="primary" className="h-11 px-4">

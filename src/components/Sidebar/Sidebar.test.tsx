@@ -8,10 +8,16 @@ describe('Sidebar', () => {
     expect(screen.getByText('TaskFlow')).toBeInTheDocument()
 
     const nav = screen.getByRole('navigation', { name: 'Main navigation' })
-    expect(within(nav).getByRole('link', { name: 'Dashboard' })).toBeInTheDocument()
-    expect(within(nav).getByRole('link', { name: 'All Tasks' })).toBeInTheDocument()
+    expect(
+      within(nav).getByRole('link', { name: 'Dashboard' }),
+    ).toBeInTheDocument()
+    expect(
+      within(nav).getByRole('link', { name: 'All Tasks' }),
+    ).toBeInTheDocument()
     expect(within(nav).getByRole('link', { name: 'Today' })).toBeInTheDocument()
-    expect(within(nav).getByRole('link', { name: 'Completed' })).toBeInTheDocument()
+    expect(
+      within(nav).getByRole('link', { name: 'Completed' }),
+    ).toBeInTheDocument()
   })
 
   it('marks Dashboard as the current page', () => {
@@ -21,9 +27,15 @@ describe('Sidebar', () => {
       'aria-current',
       'page',
     )
-    expect(screen.getByRole('link', { name: 'All Tasks' })).not.toHaveAttribute('aria-current')
-    expect(screen.getByRole('link', { name: 'Today' })).not.toHaveAttribute('aria-current')
-    expect(screen.getByRole('link', { name: 'Completed' })).not.toHaveAttribute('aria-current')
+    expect(screen.getByRole('link', { name: 'All Tasks' })).not.toHaveAttribute(
+      'aria-current',
+    )
+    expect(screen.getByRole('link', { name: 'Today' })).not.toHaveAttribute(
+      'aria-current',
+    )
+    expect(screen.getByRole('link', { name: 'Completed' })).not.toHaveAttribute(
+      'aria-current',
+    )
   })
 
   it('renders the signed-in user info', () => {

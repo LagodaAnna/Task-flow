@@ -5,13 +5,17 @@ describe('Header', () => {
   it('renders the page heading', () => {
     render(<Header />)
 
-    expect(screen.getByRole('heading', { name: 'My Tasks', level: 1 })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'My Tasks', level: 1 }),
+    ).toBeInTheDocument()
   })
 
   it('renders the subtitle', () => {
     render(<Header />)
 
-    expect(screen.getByText('Manage your work and stay on track.')).toBeInTheDocument()
+    expect(
+      screen.getByText('Manage your work and stay on track.'),
+    ).toBeInTheDocument()
   })
 
   it('exposes an accessible "Add task" action', () => {
@@ -24,6 +28,8 @@ describe('Header', () => {
   it('exposes an accessible menu toggle', () => {
     render(<Header />)
 
-    expect(screen.getByRole('button', { name: 'Open menu' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: 'Open menu' }),
+    ).toBeInTheDocument()
   })
 })

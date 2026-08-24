@@ -28,7 +28,11 @@ function TaskCard({ task }: TaskCardProps) {
       </div>
 
       <div className="absolute top-4 right-4">
-        <Button variant="plain" aria-label="Task actions" className="size-8 shrink-0">
+        <Button
+          variant="plain"
+          aria-label={`Actions for ${task.title}`}
+          className="size-8 shrink-0"
+        >
           <MoreIcon aria-hidden="true" className="size-5" />
         </Button>
       </div>

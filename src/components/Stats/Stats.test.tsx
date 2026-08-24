@@ -16,6 +16,8 @@ describe('Stats', () => {
   it('exposes the section as a labeled landmark', () => {
     render(<Stats />)
 
-    expect(screen.getByRole('region', { name: 'Task statistics' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('region', { name: 'Task statistics' }),
+    ).toBeInTheDocument()
   })
 })

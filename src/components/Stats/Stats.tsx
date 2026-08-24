@@ -1,4 +1,4 @@
-import StatsCard from "../StatsCard/StatsCard";
+import StatsCard from '../StatsCard/StatsCard'
 
 function Stats() {
   return (
@@ -14,7 +14,7 @@ function Stats() {
         />
       </dl>
     </section>
-  );
+  )
 }
 
-export default Stats;
+export default Stats

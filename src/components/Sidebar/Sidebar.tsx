@@ -1,24 +1,24 @@
-import type { ComponentType, SVGProps } from "react";
-import DashboardIcon from "../Icon/DashboardIcon";
-import TasksIcon from "../Icon/TasksIcon";
-import TodayIcon from "../Icon/TodayIcon";
-import CompletedIcon from "../Icon/CompletedIcon";
-import UserIcon from "../Icon/UserIcon";
+import type { ComponentType, SVGProps } from 'react'
+import DashboardIcon from '../Icon/DashboardIcon'
+import TasksIcon from '../Icon/TasksIcon'
+import TodayIcon from '../Icon/TodayIcon'
+import CompletedIcon from '../Icon/CompletedIcon'
+import UserIcon from '../Icon/UserIcon'
 
 type NavItem = {
-  label: string;
-  href: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
+  label: string
+  href: string
+  icon: ComponentType<SVGProps<SVGSVGElement>>
+}
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/", icon: DashboardIcon },
-  { label: "All Tasks", href: "/tasks", icon: TasksIcon },
-  { label: "Today", href: "/today", icon: TodayIcon },
-  { label: "Completed", href: "/completed", icon: CompletedIcon },
-];
+  { label: 'Dashboard', href: '/', icon: DashboardIcon },
+  { label: 'All Tasks', href: '/tasks', icon: TasksIcon },
+  { label: 'Today', href: '/today', icon: TodayIcon },
+  { label: 'Completed', href: '/completed', icon: CompletedIcon },
+]
 
-const activeHref = "/";
+const activeHref = '/'
 
 function Sidebar() {
   return (
@@ -30,25 +30,25 @@ function Sidebar() {
       <nav aria-label="Main navigation" className="px-4">
         <ul className="flex flex-col gap-2">
           {navItems.map((item) => {
-            const isActive = item.href === activeHref;
-            const Icon = item.icon;
+            const isActive = item.href === activeHref
+            const Icon = item.icon
 
             return (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`flex h-10 items-center gap-2 rounded-[10px] px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isActive
-                      ? "bg-primary-soft font-semibold text-primary"
-                      : "font-medium text-text-muted hover:bg-surface-alt"
+                      ? 'bg-primary-soft font-semibold text-primary'
+                      : 'font-medium text-text-muted hover:bg-surface-alt'
                   }`}
                 >
                   <Icon aria-hidden="true" className="size-5" />
                   {item.label}
                 </a>
               </li>
-            );
+            )
           })}
         </ul>
       </nav>
@@ -63,7 +63,7 @@ function Sidebar() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

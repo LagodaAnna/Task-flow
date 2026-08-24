@@ -1,13 +1,13 @@
-import Badge from "../Badge/Badge";
-import Button from "../Button/Button";
-import MoreIcon from "../Icon/MoreIcon";
-import CalendarIcon from "../Icon/CalendarIcon";
-import { priorityTone, statusTone } from "../Tasks/taskTone";
-import type { TaskData } from "../Tasks/taskTypes";
+import Badge from '../Badge/Badge'
+import Button from '../Button/Button'
+import MoreIcon from '../Icon/MoreIcon'
+import CalendarIcon from '../Icon/CalendarIcon'
+import { priorityTone, statusTone } from '../Tasks/taskTone'
+import type { TaskData } from '../Tasks/taskTypes'
 
 type TaskRowProps = {
-  task: TaskData;
-};
+  task: TaskData
+}
 
 function TaskRow({ task }: TaskRowProps) {
   return (
@@ -31,14 +31,14 @@ function TaskRow({ task }: TaskRowProps) {
       <td className="py-4 pr-6 pl-4 text-right align-top">
         <Button
           variant="plain"
-          aria-label="Task actions"
+          aria-label={`Actions for ${task.title}`}
           className="size-8 shrink-0"
         >
           <MoreIcon aria-hidden="true" className="size-5" />
         </Button>
       </td>
     </tr>
-  );
+  )
 }
 
-export default TaskRow;
+export default TaskRow

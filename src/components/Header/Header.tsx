@@ -1,6 +1,6 @@
-import MenuIcon from "../Icon/MenuIcon";
-import PlusIcon from "../Icon/PlusIcon";
-import Button from "../Button/Button";
+import MenuIcon from '../Icon/MenuIcon'
+import PlusIcon from '../Icon/PlusIcon'
+import Button from '../Button/Button'
 
 function Header() {
   return (
@@ -45,7 +45,7 @@ function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

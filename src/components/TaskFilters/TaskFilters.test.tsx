@@ -13,19 +13,29 @@ describe('TaskFilters', () => {
   it('renders three accessible, labeled filters with their full option sets', () => {
     render(<TaskFilters />)
 
-    const statusFilter = screen.getByRole('combobox', { name: 'Filter by status' })
+    const statusFilter = screen.getByRole('combobox', {
+      name: 'Filter by status',
+    })
     expect(
-      within(statusFilter).getAllByRole('option').map((option) => option.textContent),
+      within(statusFilter)
+        .getAllByRole('option')
+        .map((option) => option.textContent),
     ).toEqual(['All statuses', 'To do', 'In progress', 'Completed'])
 
-    const priorityFilter = screen.getByRole('combobox', { name: 'Filter by priority' })
+    const priorityFilter = screen.getByRole('combobox', {
+      name: 'Filter by priority',
+    })
     expect(
-      within(priorityFilter).getAllByRole('option').map((option) => option.textContent),
+      within(priorityFilter)
+        .getAllByRole('option')
+        .map((option) => option.textContent),
     ).toEqual(['All priorities', 'Low', 'Medium', 'High'])
 
     const sortFilter = screen.getByRole('combobox', { name: 'Sort tasks' })
     expect(
-      within(sortFilter).getAllByRole('option').map((option) => option.textContent),
+      within(sortFilter)
+        .getAllByRole('option')
+        .map((option) => option.textContent),
     ).toEqual(['Newest first', 'Oldest first'])
   })
 })

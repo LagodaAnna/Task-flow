@@ -42,7 +42,12 @@ function TaskFilters() {
             label="Filter by priority"
             options={PRIORITY_OPTIONS}
           />
-          <FilterSelect id="sort-filter" name="sort" label="Sort tasks" options={SORT_OPTIONS} />
+          <FilterSelect
+            id="sort-filter"
+            name="sort"
+            label="Sort tasks"
+            options={SORT_OPTIONS}
+          />
         </div>
       </form>
     </search>
