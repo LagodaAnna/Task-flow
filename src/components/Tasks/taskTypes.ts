@@ -1,5 +1,18 @@
-export type Priority = 'Low' | 'Medium' | 'High'
-export type Status = 'To do' | 'In progress' | 'Done'
+export const PRIORITY = {
+  LOW: 'Low',
+  MEDIUM: 'Medium',
+  HIGH: 'High',
+} as const
+
+export type Priority = (typeof PRIORITY)[keyof typeof PRIORITY]
+
+export const STATUS = {
+  TODO: 'To do',
+  IN_PROGRESS: 'In progress',
+  DONE: 'Done',
+} as const
+
+export type Status = (typeof STATUS)[keyof typeof STATUS]
 
 export type TaskData = {
   id: string

@@ -20,7 +20,7 @@ describe('TaskFilters', () => {
       within(statusFilter)
         .getAllByRole('option')
         .map((option) => option.textContent),
-    ).toEqual(['All statuses', 'To do', 'In progress', 'Completed'])
+    ).toEqual(['All statuses', 'To do', 'In progress', 'Done'])
 
     const priorityFilter = screen.getByRole('combobox', {
       name: 'Filter by priority',

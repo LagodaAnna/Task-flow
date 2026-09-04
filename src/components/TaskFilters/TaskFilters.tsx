@@ -1,8 +1,9 @@
 import SearchIcon from '../Icon/SearchIcon'
 import FilterSelect from '../FilterSelect/FilterSelect'
+import { PRIORITY, STATUS } from '../Tasks/taskTypes'
 
-const STATUS_OPTIONS = ['All statuses', 'To do', 'In progress', 'Completed']
-const PRIORITY_OPTIONS = ['All priorities', 'Low', 'Medium', 'High']
+const STATUS_OPTIONS = ['All statuses', ...Object.values(STATUS)]
+const PRIORITY_OPTIONS = ['All priorities', ...Object.values(PRIORITY)]
 const SORT_OPTIONS = ['Newest first', 'Oldest first']
 
 function TaskFilters() {
