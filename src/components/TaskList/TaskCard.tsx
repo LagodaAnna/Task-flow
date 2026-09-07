@@ -22,10 +22,12 @@ function TaskCard({ task }: TaskCardProps) {
         <Badge tone={statusTone[task.status]}>{task.status}</Badge>
       </div>
 
-      <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-text-muted">
-        <CalendarIcon aria-hidden="true" className="size-4" />
-        Due {task.dueDate}
-      </div>
+      {task.dueDate && (
+        <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-text-muted">
+          <CalendarIcon aria-hidden="true" className="size-4" />
+          Due {task.dueDate}
+        </div>
+      )}
 
       <div className="absolute top-4 right-4">
         <Button

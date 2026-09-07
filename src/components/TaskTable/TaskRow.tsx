@@ -17,10 +17,12 @@ function TaskRow({ task }: TaskRowProps) {
         <p className="mt-1 text-xs text-text-muted">{task.description}</p>
       </td>
       <td className="px-4 py-4 align-top whitespace-nowrap">
-        <span className="inline-flex items-center gap-1.5 text-sm text-text">
-          <CalendarIcon aria-hidden="true" className="size-4 text-text-muted" />
-          {task.dueDate}
-        </span>
+        {task.dueDate && (
+          <span className="inline-flex items-center gap-1.5 text-sm text-text">
+            <CalendarIcon aria-hidden="true" className="size-4 text-text-muted" />
+            {task.dueDate}
+          </span>
+        )}
       </td>
       <td className="px-4 py-4 align-top">
         <Badge tone={priorityTone[task.priority]}>{task.priority}</Badge>

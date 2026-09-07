@@ -93,4 +93,9 @@
   #root {
     min-height: 100%;
   }
+
+  /* Lock page scroll while a native <dialog> is open anywhere on the page. */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
 }

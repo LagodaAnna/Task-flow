@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { PRIORITY, STATUS, type TaskData } from '../components/Tasks/taskTypes'
 
 export const INITIAL_TASKS: TaskData[] = [
@@ -36,5 +37,15 @@ export const INITIAL_TASKS: TaskData[] = [
 ]
 
 export function useTasks() {
-  return { tasks: INITIAL_TASKS }
+  const [tasks, setTasks] = useState<TaskData[]>(INITIAL_TASKS)
+
+  function addTask(task: TaskData) {
+    setTasks((current) => [task, ...current])
+  }
+
+  function updateTask(task: TaskData) {
+    setTasks((current) => current.map((existing) => (existing.id === task.id ? task : existing)))
+  }
+
+  return { tasks, addTask, updateTask }
 }

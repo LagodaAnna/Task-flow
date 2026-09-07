@@ -2,7 +2,11 @@ import MenuIcon from '../Icon/MenuIcon'
 import PlusIcon from '../Icon/PlusIcon'
 import Button from '../Button/Button'
 
-function Header() {
+type HeaderProps = {
+  onAddTask: () => void
+}
+
+function Header({ onAddTask }: HeaderProps) {
   return (
     <header className="flex flex-col gap-6">
       {/* Mobile app bar — flush, full width (breaks out of the page padding) */}
@@ -13,7 +17,12 @@ function Header() {
           </Button>
           <span className="text-lg font-bold text-text">TaskFlow</span>
         </div>
-        <Button variant="primary" aria-label="Add task" className="size-10">
+        <Button
+          variant="primary"
+          aria-label="Add task"
+          className="size-10"
+          onClick={onAddTask}
+        >
           <PlusIcon aria-hidden="true" className="size-5" />
         </Button>
       </div>
@@ -21,7 +30,7 @@ function Header() {
       {/* Tablet app bar */}
       <div className="hidden items-center justify-between rounded-[18px] border border-border bg-surface px-6 py-5 sm:flex lg:hidden">
         <span className="text-xl font-bold text-text">TaskFlow</span>
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={onAddTask}>
           <PlusIcon aria-hidden="true" className="size-4" />
           Add task
         </Button>
@@ -38,7 +47,7 @@ function Header() {
           </p>
         </div>
         <div className="hidden lg:inline-flex">
-          <Button variant="primary" className="h-11 px-4">
+          <Button variant="primary" className="h-11 px-4" onClick={onAddTask}>
             <PlusIcon aria-hidden="true" className="size-4" />
             Add task
           </Button>

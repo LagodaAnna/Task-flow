@@ -1,3 +1,4 @@
+import type { FormEvent } from 'react'
 import SearchIcon from '../Icon/SearchIcon'
 import FilterSelect from '../FilterSelect/FilterSelect'
 import { PRIORITY, STATUS } from '../Tasks/taskTypes'
@@ -7,11 +8,15 @@ const PRIORITY_OPTIONS = ['All priorities', ...Object.values(PRIORITY)]
 const SORT_OPTIONS = ['Newest first', 'Oldest first']
 
 function TaskFilters() {
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault()
+  }
+
   return (
     <search aria-label="Search and filter tasks">
       <form
         className="flex flex-col gap-3 lg:flex-row lg:items-center"
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={handleSubmit}
       >
         <div className="relative lg:flex-1">
           <label htmlFor="search-tasks" className="sr-only">
