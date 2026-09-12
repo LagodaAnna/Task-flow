@@ -28,7 +28,6 @@ function Modal({ onClose, title, children }: ModalProps) {
     <dialog
       ref={dialogRef}
       onClose={onClose}
-      onCancel={onClose}
       aria-labelledby="modal-title"
       className="fixed inset-0 m-0 h-dvh max-h-none w-dvw max-w-none bg-transparent p-0 backdrop:bg-black/50"
     >

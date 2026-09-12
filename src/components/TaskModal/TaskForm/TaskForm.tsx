@@ -83,7 +83,7 @@ function TaskForm({ onSubmit, onCancel, initialValues, submitLabel }: TaskFormPr
         </p>
       </FormField>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FormField label="Status" htmlFor="task-status" required>
           <SelectField<Status>
             id="task-status"
@@ -109,11 +109,11 @@ function TaskForm({ onSubmit, onCancel, initialValues, submitLabel }: TaskFormPr
         <DateField id="task-due-date" value={values.dueDate} onChange={handleDueDateChange} />
       </FormField>
 
-      <div className="mt-2 flex justify-end gap-3">
-        <Button variant="secondary" onClick={onCancel} className="h-11 px-4">
+      <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+        <Button variant="secondary" onClick={onCancel} className="h-11 w-full px-4 sm:w-auto">
           Cancel
         </Button>
-        <Button type="submit" variant="primary" className="h-11 px-4">
+        <Button type="submit" variant="primary" className="h-11 w-full px-4 sm:w-auto">
           {submitLabel}
         </Button>
       </div>
