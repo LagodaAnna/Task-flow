@@ -70,12 +70,20 @@ describe('TaskModal', () => {
     )
 
     expect(screen.getByRole('heading', { name: 'Edit task' })).toBeInTheDocument()
-    expect(screen.getByLabelText(/title/i)).toHaveValue(EXISTING_TASK.title)
+    const titleInput = screen.getByLabelText(/title/i)
+    expect(titleInput).toHaveValue(EXISTING_TASK.title)
 
+    await user.clear(titleInput)
+    await user.type(titleInput, 'Review pull request v2')
     await user.click(screen.getByRole('button', { name: 'Save changes' }))
 
     expect(onUpdateTask).toHaveBeenCalledTimes(1)
-    expect(onUpdateTask).toHaveBeenCalledWith(expect.objectContaining({ id: EXISTING_TASK.id }))
+    expect(onUpdateTask).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: EXISTING_TASK.id,
+        title: 'Review pull request v2',
+      }),
+    )
     expect(onClose).toHaveBeenCalledTimes(1)
   })
 })
