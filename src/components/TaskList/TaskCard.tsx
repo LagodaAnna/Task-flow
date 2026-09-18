@@ -7,13 +7,24 @@ import type { TaskData } from '../Tasks/taskTypes'
 type TaskCardProps = {
   task: TaskData
   onEditTask: (task: TaskData) => void
+  onDeleteTask: (task: TaskData) => void
   isActionsOpen: boolean
   onToggleActions: (taskId: string) => void
 }
 
-function TaskCard({ task, onEditTask, isActionsOpen, onToggleActions }: TaskCardProps) {
+function TaskCard({
+  task,
+  onEditTask,
+  onDeleteTask,
+  isActionsOpen,
+  onToggleActions,
+}: TaskCardProps) {
   function handleEdit() {
     onEditTask(task)
+  }
+
+  function handleDelete() {
+    onDeleteTask(task)
   }
 
   function handleToggleActions() {
@@ -45,6 +56,7 @@ function TaskCard({ task, onEditTask, isActionsOpen, onToggleActions }: TaskCard
           isOpen={isActionsOpen}
           onToggle={handleToggleActions}
           onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </div>
     </li>

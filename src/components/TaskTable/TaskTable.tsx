@@ -4,11 +4,18 @@ import type { TaskData } from '../Tasks/taskTypes'
 type TaskTableProps = {
   tasks: TaskData[]
   onEditTask: (task: TaskData) => void
+  onDeleteTask: (task: TaskData) => void
   openTaskId: string | null
   onToggleTaskActions: (taskId: string) => void
 }
 
-function TaskTable({ tasks, onEditTask, openTaskId, onToggleTaskActions }: TaskTableProps) {
+function TaskTable({
+  tasks,
+  onEditTask,
+  onDeleteTask,
+  openTaskId,
+  onToggleTaskActions,
+}: TaskTableProps) {
   return (
     <div className="hidden rounded-lg border border-border bg-surface lg:block">
       <table className="w-full">
@@ -38,6 +45,7 @@ function TaskTable({ tasks, onEditTask, openTaskId, onToggleTaskActions }: TaskT
               key={task.id}
               task={task}
               onEditTask={onEditTask}
+              onDeleteTask={onDeleteTask}
               isActionsOpen={openTaskId === task.id}
               onToggleActions={onToggleTaskActions}
             />

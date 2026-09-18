@@ -47,5 +47,9 @@ export function useTasks() {
     setTasks((current) => current.map((existing) => (existing.id === task.id ? task : existing)))
   }
 
-  return { tasks, addTask, updateTask }
+  function deleteTask(taskId: string) {
+    setTasks((current) => current.filter((task) => task.id !== taskId))
+  }
+
+  return { tasks, addTask, updateTask, deleteTask }
 }

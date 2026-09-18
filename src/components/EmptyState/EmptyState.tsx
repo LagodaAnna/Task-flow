@@ -2,7 +2,11 @@ import Button from '../Button/Button'
 import PlusIcon from '../Icon/PlusIcon'
 import emptyStateIllustration from '../../assets/illustrations/empty-state-illustration.svg'
 
-function EmptyState() {
+type EmptyStateProps = {
+  onAddTask: () => void
+}
+
+function EmptyState({ onAddTask }: EmptyStateProps) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-6 rounded-lg border border-border bg-surface px-6 py-16 text-center">
       <img src={emptyStateIllustration} alt="" className="size-40" />
@@ -14,7 +18,7 @@ function EmptyState() {
         </p>
       </div>
 
-      <Button variant="primary" className="h-11 px-4">
+      <Button variant="primary" className="h-11 px-4" onClick={onAddTask}>
         <PlusIcon aria-hidden="true" className="size-4" />
         Add task
       </Button>

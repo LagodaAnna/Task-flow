@@ -6,11 +6,17 @@ type TaskActionsProps = {
   isOpen: boolean
   onToggle: () => void
   onEdit: () => void
+  onDelete: () => void
 }
 
-function TaskActions({ taskTitle, isOpen, onToggle, onEdit }: TaskActionsProps) {
+function TaskActions({ taskTitle, isOpen, onToggle, onEdit, onDelete }: TaskActionsProps) {
   function handleEditClick() {
     onEdit()
+    onToggle()
+  }
+
+  function handleDeleteClick() {
+    onDelete()
     onToggle()
   }
 
@@ -34,6 +40,13 @@ function TaskActions({ taskTitle, isOpen, onToggle, onEdit }: TaskActionsProps) 
             className="w-full px-3 py-2 text-left text-sm text-text hover:bg-surface-alt"
           >
             Edit
+          </button>
+          <button
+            type="button"
+            onClick={handleDeleteClick}
+            className="w-full px-3 py-2 text-left text-sm text-text hover:bg-surface-alt"
+          >
+            Delete
           </button>
         </div>
       )}

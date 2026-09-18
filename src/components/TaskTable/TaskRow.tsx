@@ -7,13 +7,24 @@ import type { TaskData } from '../Tasks/taskTypes'
 type TaskRowProps = {
   task: TaskData
   onEditTask: (task: TaskData) => void
+  onDeleteTask: (task: TaskData) => void
   isActionsOpen: boolean
   onToggleActions: (taskId: string) => void
 }
 
-function TaskRow({ task, onEditTask, isActionsOpen, onToggleActions }: TaskRowProps) {
+function TaskRow({
+  task,
+  onEditTask,
+  onDeleteTask,
+  isActionsOpen,
+  onToggleActions,
+}: TaskRowProps) {
   function handleEdit() {
     onEditTask(task)
+  }
+
+  function handleDelete() {
+    onDeleteTask(task)
   }
 
   function handleToggleActions() {
@@ -46,6 +57,7 @@ function TaskRow({ task, onEditTask, isActionsOpen, onToggleActions }: TaskRowPr
           isOpen={isActionsOpen}
           onToggle={handleToggleActions}
           onEdit={handleEdit}
+          onDelete={handleDelete}
         />
       </td>
     </tr>

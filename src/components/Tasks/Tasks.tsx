@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import TaskTable from '../TaskTable/TaskTable'
 import TaskList from '../TaskList/TaskList'
+import EmptyState from '../EmptyState/EmptyState'
 import type { TaskData } from './taskTypes'
 
 type TasksProps = {
   tasks: TaskData[]
+  onAddTask: () => void
   onEditTask: (task: TaskData) => void
+  onDeleteTask: (task: TaskData) => void
 }
 
-function Tasks({ tasks, onEditTask }: TasksProps) {
+function Tasks({ tasks, onAddTask, onEditTask, onDeleteTask }: TasksProps) {
   const [openTaskId, setOpenTaskId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -29,17 +32,23 @@ function Tasks({ tasks, onEditTask }: TasksProps) {
     setOpenTaskId((current) => (current === taskId ? null : taskId))
   }
 
+  if (tasks.length === 0) {
+    return <EmptyState onAddTask={onAddTask} />
+  }
+
   return (
     <>
       <TaskTable
         tasks={tasks}
         onEditTask={onEditTask}
+        onDeleteTask={onDeleteTask}
         openTaskId={openTaskId}
         onToggleTaskActions={handleToggleTaskActions}
       />
       <TaskList
         tasks={tasks}
         onEditTask={onEditTask}
+        onDeleteTask={onDeleteTask}
         openTaskId={openTaskId}
         onToggleTaskActions={handleToggleTaskActions}
       />

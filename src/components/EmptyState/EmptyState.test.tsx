@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import EmptyState from './EmptyState'
 
 describe('EmptyState', () => {
   it('renders the heading and body copy', () => {
-    render(<EmptyState />)
+    render(<EmptyState onAddTask={() => {}} />)
 
     expect(
       screen.getByRole('heading', { name: 'No tasks yet' }),
@@ -13,9 +14,13 @@ describe('EmptyState', () => {
     ).toBeInTheDocument()
   })
 
-  it('renders an accessible "Add task" call to action', () => {
-    render(<EmptyState />)
+  it('calls onAddTask when the "Add task" button is clicked', async () => {
+    const user = userEvent.setup()
+    const onAddTask = vi.fn()
+    render(<EmptyState onAddTask={onAddTask} />)
 
-    expect(screen.getByRole('button', { name: 'Add task' })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Add task' }))
+
+    expect(onAddTask).toHaveBeenCalledTimes(1)
   })
 })
