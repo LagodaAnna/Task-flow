@@ -1,15 +1,25 @@
 import Badge from '../Badge/Badge'
-import Button from '../Button/Button'
-import MoreIcon from '../Icon/MoreIcon'
+import TaskActions from '../TaskActions/TaskActions'
 import CalendarIcon from '../Icon/CalendarIcon'
 import { priorityTone, statusTone } from '../Tasks/taskTone'
 import type { TaskData } from '../Tasks/taskTypes'
 
 type TaskRowProps = {
   task: TaskData
+  onEditTask: (task: TaskData) => void
+  isActionsOpen: boolean
+  onToggleActions: (taskId: string) => void
 }
 
-function TaskRow({ task }: TaskRowProps) {
+function TaskRow({ task, onEditTask, isActionsOpen, onToggleActions }: TaskRowProps) {
+  function handleEdit() {
+    onEditTask(task)
+  }
+
+  function handleToggleActions() {
+    onToggleActions(task.id)
+  }
+
   return (
     <tr>
       <td className="py-4 pr-4 pl-6 align-top">
@@ -31,13 +41,12 @@ function TaskRow({ task }: TaskRowProps) {
         <Badge tone={statusTone[task.status]}>{task.status}</Badge>
       </td>
       <td className="py-4 pr-6 pl-4 text-right align-top">
-        <Button
-          variant="plain"
-          aria-label={`Actions for ${task.title}`}
-          className="size-8 shrink-0"
-        >
-          <MoreIcon aria-hidden="true" className="size-5" />
-        </Button>
+        <TaskActions
+          taskTitle={task.title}
+          isOpen={isActionsOpen}
+          onToggle={handleToggleActions}
+          onEdit={handleEdit}
+        />
       </td>
     </tr>
   )

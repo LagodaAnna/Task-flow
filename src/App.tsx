@@ -21,6 +21,10 @@ function App() {
     setTaskModal({ type: 'create' })
   }
 
+  function handleEditTask(task: TaskData) {
+    setTaskModal({ type: 'edit', task })
+  }
+
   function handleCloseTaskModal() {
     setTaskModal(null)
   }
@@ -33,7 +37,7 @@ function App() {
         <main className="flex flex-1 flex-col gap-6">
           <Stats tasks={tasks} />
           <TaskFilters />
-          <Tasks tasks={tasks} />
+          <Tasks tasks={tasks} onEditTask={handleEditTask} />
         </main>
       </div>
 

@@ -3,13 +3,22 @@ import type { TaskData } from '../Tasks/taskTypes'
 
 type TaskListProps = {
   tasks: TaskData[]
+  onEditTask: (task: TaskData) => void
+  openTaskId: string | null
+  onToggleTaskActions: (taskId: string) => void
 }
 
-function TaskList({ tasks }: TaskListProps) {
+function TaskList({ tasks, onEditTask, openTaskId, onToggleTaskActions }: TaskListProps) {
   return (
     <ul className="flex flex-col gap-3 lg:hidden">
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
+        <TaskCard
+          key={task.id}
+          task={task}
+          onEditTask={onEditTask}
+          isActionsOpen={openTaskId === task.id}
+          onToggleActions={onToggleTaskActions}
+        />
       ))}
     </ul>
   )

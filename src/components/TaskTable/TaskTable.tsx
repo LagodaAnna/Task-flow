@@ -3,11 +3,14 @@ import type { TaskData } from '../Tasks/taskTypes'
 
 type TaskTableProps = {
   tasks: TaskData[]
+  onEditTask: (task: TaskData) => void
+  openTaskId: string | null
+  onToggleTaskActions: (taskId: string) => void
 }
 
-function TaskTable({ tasks }: TaskTableProps) {
+function TaskTable({ tasks, onEditTask, openTaskId, onToggleTaskActions }: TaskTableProps) {
   return (
-    <div className="hidden overflow-hidden rounded-lg border border-border bg-surface lg:block">
+    <div className="hidden rounded-lg border border-border bg-surface lg:block">
       <table className="w-full">
         <caption className="sr-only">Tasks</caption>
         <thead>
@@ -31,7 +34,13 @@ function TaskTable({ tasks }: TaskTableProps) {
         </thead>
         <tbody className="divide-y divide-border">
           {tasks.map((task) => (
-            <TaskRow key={task.id} task={task} />
+            <TaskRow
+              key={task.id}
+              task={task}
+              onEditTask={onEditTask}
+              isActionsOpen={openTaskId === task.id}
+              onToggleActions={onToggleTaskActions}
+            />
           ))}
         </tbody>
       </table>

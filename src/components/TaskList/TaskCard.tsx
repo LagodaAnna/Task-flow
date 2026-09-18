@@ -1,15 +1,25 @@
 import Badge from '../Badge/Badge'
-import Button from '../Button/Button'
-import MoreIcon from '../Icon/MoreIcon'
+import TaskActions from '../TaskActions/TaskActions'
 import CalendarIcon from '../Icon/CalendarIcon'
 import { priorityTone, statusTone } from '../Tasks/taskTone'
 import type { TaskData } from '../Tasks/taskTypes'
 
 type TaskCardProps = {
   task: TaskData
+  onEditTask: (task: TaskData) => void
+  isActionsOpen: boolean
+  onToggleActions: (taskId: string) => void
 }
 
-function TaskCard({ task }: TaskCardProps) {
+function TaskCard({ task, onEditTask, isActionsOpen, onToggleActions }: TaskCardProps) {
+  function handleEdit() {
+    onEditTask(task)
+  }
+
+  function handleToggleActions() {
+    onToggleActions(task.id)
+  }
+
   return (
     <li className="relative rounded-[14px] border border-border bg-surface p-4">
       <div className="pr-10">
@@ -30,13 +40,12 @@ function TaskCard({ task }: TaskCardProps) {
       )}
 
       <div className="absolute top-4 right-4">
-        <Button
-          variant="plain"
-          aria-label={`Actions for ${task.title}`}
-          className="size-8 shrink-0"
-        >
-          <MoreIcon aria-hidden="true" className="size-5" />
-        </Button>
+        <TaskActions
+          taskTitle={task.title}
+          isOpen={isActionsOpen}
+          onToggle={handleToggleActions}
+          onEdit={handleEdit}
+        />
       </div>
     </li>
   )
