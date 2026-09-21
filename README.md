@@ -1,75 +1,93 @@
-# React + TypeScript + Vite
+# TaskFlow
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TaskFlow is a responsive task management application built with React and TypeScript.
 
-Currently, two official plugins are available:
+The project demonstrates a component-based frontend architecture, typed domain models, reusable UI components, client-side persistence, task filtering and sorting, responsive layouts, and automated testing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The application was developed as an AI-assisted project using Claude Code, with a focus on understanding, reviewing, and validating generated solutions rather than treating AI-generated code as a black box.
 
-## React Compiler
+**Project status:** TaskFlow is under active development. The current version implements the core task management functionality, while additional features are planned, including routing, internationalization (i18n), further accessibility improvements, and other production-oriented enhancements.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Live Demo
 
-## Expanding the ESLint configuration
+[Open TaskFlow](https://lagodaanna.github.io/Task-flow/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Create new tasks
+- Edit existing tasks
+- Delete tasks with confirmation
+- Persist tasks between browser sessions
+- Search tasks by title
+- Filter tasks by status
+- Filter tasks by priority
+- Sort tasks by creation date
+- Display task statistics
+- Responsive desktop, tablet, and mobile layouts
+- Separate empty, no-results, and storage-error states
+- Reusable task form for both create and edit flows
+- Accessible form controls and modal interactions
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Core
 
-```
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS 4
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### UI and utilities
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- react-day-picker — calendar/date selection
+- date-fns — date parsing and formatting
+- Native HTML `<dialog>` — modal behavior
+- React Portals — modal rendering outside the main application tree
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Testing
 
-```
+- Vitest
+- React Testing Library
+- Testing Library User Event
+- jest-dom
+- jsdom
+
+### Code quality
+
+- ESLint
+- TypeScript static type checking
+
+## Persistence
+
+Task data is currently stored in the browser using `localStorage`.
+
+A future version can replace the current persistence implementation with an asynchronous API while keeping most presentation components independent from the persistence mechanism.
+
+## Responsive UI
+
+TaskFlow is designed for three responsive ranges:
+
+- Mobile: below 640px
+- Tablet: 640px–1023px
+- Desktop: 1024px and above
+
+The task presentation adapts to the available screen size, using a table-oriented layout on desktop and task cards on smaller screens.
+
+The application also includes responsive navigation and modal behavior.
+
+## AI-Assisted Development
+
+TaskFlow was developed with the assistance of Claude Code as part of an AI-assisted development workflow.
+
+Claude was used for tasks such as:
+
+- analyzing implementation approaches;
+- discussing architectural alternatives;
+- assisting with implementation;
+- generating and improving tests;
+- reviewing code and identifying edge cases;
+- exploring accessibility and responsive behavior.
+
+AI-generated suggestions were reviewed before being integrated into the project. Architectural decisions, requirements, implementation trade-offs, debugging, and final code review remained part of the development process.
+
+The goal of using AI in this project was not only to accelerate implementation, but also to practice working effectively with modern AI development tools while maintaining an understanding of the resulting codebase.
