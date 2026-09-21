@@ -21,4 +21,5 @@ export type TaskData = {
   dueDate: string
   priority: Priority
   status: Status
+  createdAt: string
 }

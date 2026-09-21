@@ -10,6 +10,7 @@ const EXISTING_TASK: TaskData = {
   dueDate: '25 Aug 2026',
   priority: 'Medium',
   status: 'To do',
+  createdAt: '2026-08-19T09:00:00.000Z',
 }
 
 describe('TaskModal', () => {

@@ -37,6 +37,7 @@ function TaskModal({ task, onClose, onCreateTask, onUpdateTask }: TaskModalProps
         status: values.status,
         priority: values.priority,
         dueDate,
+        createdAt: new Date().toISOString(),
       })
     }
     onClose()

@@ -16,6 +16,7 @@ function renderTasks() {
   return render(
     <Tasks
       tasks={INITIAL_TASKS}
+      hasTasks={true}
       onAddTask={() => {}}
       onEditTask={() => {}}
       onDeleteTask={() => {}}
@@ -100,8 +101,16 @@ describe('Tasks', () => {
     expect(screen.queryAllByRole('button', { name: 'Edit' })).toHaveLength(0)
   })
 
-  it('shows the empty state and no task list when there are no tasks', () => {
-    render(<Tasks tasks={[]} onAddTask={() => {}} onEditTask={() => {}} onDeleteTask={() => {}} />)
+  it('shows the empty state and no task list when there are no tasks at all', () => {
+    render(
+      <Tasks
+        tasks={[]}
+        hasTasks={false}
+        onAddTask={() => {}}
+        onEditTask={() => {}}
+        onDeleteTask={() => {}}
+      />,
+    )
 
     expect(screen.getByRole('heading', { name: 'No tasks yet' })).toBeInTheDocument()
     expect(screen.queryByRole('table')).not.toBeInTheDocument()
@@ -110,10 +119,34 @@ describe('Tasks', () => {
   it('calls onAddTask when the empty state\'s "Add task" button is clicked', async () => {
     const user = userEvent.setup()
     const onAddTask = vi.fn()
-    render(<Tasks tasks={[]} onAddTask={onAddTask} onEditTask={() => {}} onDeleteTask={() => {}} />)
+    render(
+      <Tasks
+        tasks={[]}
+        hasTasks={false}
+        onAddTask={onAddTask}
+        onEditTask={() => {}}
+        onDeleteTask={() => {}}
+      />,
+    )
 
     await user.click(screen.getByRole('button', { name: 'Add task' }))
 
     expect(onAddTask).toHaveBeenCalledTimes(1)
+  })
+
+  it('shows the no-results state, not the empty state, when tasks exist but none are visible', () => {
+    render(
+      <Tasks
+        tasks={[]}
+        hasTasks={true}
+        onAddTask={() => {}}
+        onEditTask={() => {}}
+        onDeleteTask={() => {}}
+      />,
+    )
+
+    expect(screen.getByRole('heading', { name: 'No matching tasks' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'No tasks yet' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('table')).not.toBeInTheDocument()
   })
 })

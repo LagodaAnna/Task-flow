@@ -7,6 +7,8 @@ import Tasks from './components/Tasks/Tasks'
 import TaskModal from './components/TaskModal/TaskModal'
 import DeleteTaskDialog from './components/DeleteTaskDialog/DeleteTaskDialog'
 import { useTasks } from './hooks/useTasks'
+import { useTaskFilters } from './hooks/useTaskFilters'
+import { getVisibleTasks } from './components/Tasks/utils/getVisibleTasks'
 import type { TaskData } from './components/Tasks/taskTypes'
 
 type TaskModalState =
@@ -14,12 +16,16 @@ type TaskModalState =
   | { type: 'edit'; task: TaskData }
   | null
 
-type DeleteDialogState = TaskData | null
+type TaskToDeleteState = TaskData | null
 
 function App() {
   const { tasks, addTask, updateTask, deleteTask } = useTasks()
+  const { search, setSearch, status, setStatus, priority, setPriority, sort, setSort } =
+    useTaskFilters()
   const [taskModal, setTaskModal] = useState<TaskModalState>(null)
-  const [deleteDialog, setDeleteDialog] = useState<DeleteDialogState>(null)
+  const [taskToDelete, setTaskToDelete] = useState<TaskToDeleteState>(null)
+
+  const visibleTasks = getVisibleTasks(tasks, { search, status, priority, sort })
 
   function handleAddTask() {
     setTaskModal({ type: 'create' })
@@ -34,18 +40,18 @@ function App() {
   }
 
   function handleDeleteTask(task: TaskData) {
-    setDeleteDialog(task)
+    setTaskToDelete(task)
   }
 
   function handleCancelDelete() {
-    setDeleteDialog(null)
+    setTaskToDelete(null)
   }
 
   function handleConfirmDelete() {
-    if (deleteDialog) {
-      deleteTask(deleteDialog.id)
+    if (taskToDelete) {
+      deleteTask(taskToDelete.id)
     }
-    setDeleteDialog(null)
+    setTaskToDelete(null)
   }
 
   return (
@@ -55,9 +61,19 @@ function App() {
         <Header onAddTask={handleAddTask} />
         <main className="flex flex-1 flex-col gap-6">
           <Stats tasks={tasks} />
-          <TaskFilters />
+          <TaskFilters
+            search={search}
+            onSearchChange={setSearch}
+            status={status}
+            onStatusChange={setStatus}
+            priority={priority}
+            onPriorityChange={setPriority}
+            sort={sort}
+            onSortChange={setSort}
+          />
           <Tasks
-            tasks={tasks}
+            tasks={visibleTasks}
+            hasTasks={tasks.length > 0}
             onAddTask={handleAddTask}
             onEditTask={handleEditTask}
             onDeleteTask={handleDeleteTask}
@@ -74,9 +90,9 @@ function App() {
         />
       )}
 
-      {deleteDialog && (
+      {taskToDelete && (
         <DeleteTaskDialog
-          taskTitle={deleteDialog.title}
+          taskTitle={taskToDelete.title}
           onCancel={handleCancelDelete}
           onConfirm={handleConfirmDelete}
         />

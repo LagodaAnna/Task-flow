@@ -2,16 +2,18 @@ import { useEffect, useState } from 'react'
 import TaskTable from '../TaskTable/TaskTable'
 import TaskList from '../TaskList/TaskList'
 import EmptyState from '../EmptyState/EmptyState'
+import NoResultsState from '../NoResultsState/NoResultsState'
 import type { TaskData } from './taskTypes'
 
 type TasksProps = {
   tasks: TaskData[]
+  hasTasks: boolean
   onAddTask: () => void
   onEditTask: (task: TaskData) => void
   onDeleteTask: (task: TaskData) => void
 }
 
-function Tasks({ tasks, onAddTask, onEditTask, onDeleteTask }: TasksProps) {
+function Tasks({ tasks, hasTasks, onAddTask, onEditTask, onDeleteTask }: TasksProps) {
   const [openTaskId, setOpenTaskId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function Tasks({ tasks, onAddTask, onEditTask, onDeleteTask }: TasksProps) {
   }
 
   if (tasks.length === 0) {
-    return <EmptyState onAddTask={onAddTask} />
+    return hasTasks ? <NoResultsState /> : <EmptyState onAddTask={onAddTask} />
   }
 
   return (

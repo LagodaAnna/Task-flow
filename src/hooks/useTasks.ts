@@ -9,6 +9,7 @@ export const INITIAL_TASKS: TaskData[] = [
     dueDate: '24 Aug 2026',
     priority: PRIORITY.HIGH,
     status: STATUS.IN_PROGRESS,
+    createdAt: '2026-08-20T09:00:00.000Z',
   },
   {
     id: 'review-pull-request',
@@ -17,6 +18,7 @@ export const INITIAL_TASKS: TaskData[] = [
     dueDate: '25 Aug 2026',
     priority: PRIORITY.MEDIUM,
     status: STATUS.TODO,
+    createdAt: '2026-08-19T09:00:00.000Z',
   },
   {
     id: 'update-dependencies',
@@ -25,6 +27,7 @@ export const INITIAL_TASKS: TaskData[] = [
     dueDate: '27 Aug 2026',
     priority: PRIORITY.LOW,
     status: STATUS.DONE,
+    createdAt: '2026-08-18T09:00:00.000Z',
   },
   {
     id: 'write-release-notes',
@@ -33,6 +36,7 @@ export const INITIAL_TASKS: TaskData[] = [
     dueDate: '29 Aug 2026',
     priority: PRIORITY.MEDIUM,
     status: STATUS.TODO,
+    createdAt: '2026-08-17T09:00:00.000Z',
   },
 ]
 
