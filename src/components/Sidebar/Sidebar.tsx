@@ -33,16 +33,31 @@ function Sidebar() {
             const isActive = item.href === activeHref
             const Icon = item.icon
 
+            if (!isActive) {
+              return (
+                <li key={item.href}>
+                  <span
+                    aria-disabled="true"
+                    className="flex flex-col gap-1 rounded-[10px] px-3 py-2 text-sm font-medium text-text-placeholder"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Icon aria-hidden="true" className="size-5" />
+                      {item.label}
+                    </span>
+                    <span className="ml-7 w-fit rounded-full bg-surface-alt px-2 py-0.5 text-[10px] font-semibold whitespace-nowrap text-text-muted">
+                      Coming soon
+                    </span>
+                  </span>
+                </li>
+              )
+            }
+
             return (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  className={`flex h-10 items-center gap-2 rounded-[10px] px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                    isActive
-                      ? 'bg-primary-soft font-semibold text-primary'
-                      : 'font-medium text-text-muted hover:bg-surface-alt'
-                  }`}
+                  aria-current="page"
+                  className="flex h-10 items-center gap-2 rounded-[10px] bg-primary-soft px-3 text-sm font-semibold text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <Icon aria-hidden="true" className="size-5" />
                   {item.label}
