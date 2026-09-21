@@ -1,19 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import Stats from './Stats'
+import { makeTask } from '../../test/utils/makeTask'
 import type { TaskData } from '../Tasks/taskTypes'
-
-function makeTask(overrides: Partial<TaskData>): TaskData {
-  return {
-    id: overrides.id ?? 'id',
-    title: 'title',
-    description: '',
-    dueDate: '',
-    priority: 'Low',
-    status: 'To do',
-    createdAt: '2026-01-01T00:00:00.000Z',
-    ...overrides,
-  }
-}
 
 const TASKS: TaskData[] = [
   makeTask({ id: '1', status: 'To do' }),

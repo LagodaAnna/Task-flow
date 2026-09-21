@@ -6,6 +6,7 @@ import TaskFilters from './components/TaskFilters/TaskFilters'
 import Tasks from './components/Tasks/Tasks'
 import TaskModal from './components/TaskModal/TaskModal'
 import DeleteTaskDialog from './components/DeleteTaskDialog/DeleteTaskDialog'
+import TasksErrorState from './components/TasksErrorState/TasksErrorState'
 import { useTasks } from './hooks/useTasks'
 import { useTaskFilters } from './hooks/useTaskFilters'
 import { getVisibleTasks } from './components/Tasks/utils/getVisibleTasks'
@@ -19,13 +20,26 @@ type TaskModalState =
 type TaskToDeleteState = TaskData | null
 
 function App() {
-  const { tasks, addTask, updateTask, deleteTask } = useTasks()
-  const { search, setSearch, status, setStatus, priority, setPriority, sort, setSort } =
-    useTaskFilters()
+  const { tasks, addTask, updateTask, deleteTask, loadError } = useTasks()
+  const {
+    search,
+    setSearch,
+    status,
+    setStatus,
+    priority,
+    setPriority,
+    sort,
+    setSort,
+  } = useTaskFilters()
   const [taskModal, setTaskModal] = useState<TaskModalState>(null)
   const [taskToDelete, setTaskToDelete] = useState<TaskToDeleteState>(null)
 
-  const visibleTasks = getVisibleTasks(tasks, { search, status, priority, sort })
+  const visibleTasks = getVisibleTasks(tasks, {
+    search,
+    status,
+    priority,
+    sort,
+  })
 
   function handleAddTask() {
     setTaskModal({ type: 'create' })
@@ -60,24 +74,30 @@ function App() {
       <div className="flex flex-1 flex-col gap-6">
         <Header onAddTask={handleAddTask} />
         <main className="flex flex-1 flex-col gap-6">
-          <Stats tasks={tasks} />
-          <TaskFilters
-            search={search}
-            onSearchChange={setSearch}
-            status={status}
-            onStatusChange={setStatus}
-            priority={priority}
-            onPriorityChange={setPriority}
-            sort={sort}
-            onSortChange={setSort}
-          />
-          <Tasks
-            tasks={visibleTasks}
-            hasTasks={tasks.length > 0}
-            onAddTask={handleAddTask}
-            onEditTask={handleEditTask}
-            onDeleteTask={handleDeleteTask}
-          />
+          {loadError ? (
+            <TasksErrorState />
+          ) : (
+            <>
+              <Stats tasks={tasks} />
+              <TaskFilters
+                search={search}
+                onSearchChange={setSearch}
+                status={status}
+                onStatusChange={setStatus}
+                priority={priority}
+                onPriorityChange={setPriority}
+                sort={sort}
+                onSortChange={setSort}
+              />
+              <Tasks
+                tasks={visibleTasks}
+                hasTasks={tasks.length > 0}
+                onAddTask={handleAddTask}
+                onEditTask={handleEditTask}
+                onDeleteTask={handleDeleteTask}
+              />
+            </>
+          )}
         </main>
       </div>
 

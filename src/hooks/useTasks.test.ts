@@ -1,49 +1,76 @@
 import { renderHook, act } from '@testing-library/react'
-import { useTasks, INITIAL_TASKS } from './useTasks'
-import type { TaskData } from '../components/Tasks/taskTypes'
+import { useTasks } from './useTasks'
+import * as tasksApi from '../services/tasksApi'
+import { makeTask } from '../test/utils/makeTask'
 
-const NEW_TASK: TaskData = {
-  id: 'new-task',
-  title: 'New task',
-  description: '',
-  dueDate: '',
-  priority: 'Low',
-  status: 'To do',
-  createdAt: '2026-01-01T00:00:00.000Z',
-}
+const STORAGE_KEY = 'taskflow:tasks'
 
 describe('useTasks', () => {
-  it('starts with the initial sample tasks', () => {
-    const { result } = renderHook(() => useTasks())
-
-    expect(result.current.tasks).toEqual(INITIAL_TASKS)
+  beforeEach(() => {
+    localStorage.clear()
   })
 
-  it('adds a new task to the front of the list', () => {
+  it('starts with an empty array when nothing is stored', () => {
     const { result } = renderHook(() => useTasks())
+
+    expect(result.current.tasks).toEqual([])
+    expect(result.current.loadError).toBe(false)
+  })
+
+  it('loads previously-stored tasks', () => {
+    const storedTask = makeTask({ id: 'stored-task' })
+    tasksApi.createTask(storedTask)
+
+    const { result } = renderHook(() => useTasks())
+
+    expect(result.current.tasks).toEqual([storedTask])
+  })
+
+  it('surfaces a load error when stored data is corrupt', () => {
+    localStorage.setItem(STORAGE_KEY, 'not json')
+
+    const { result } = renderHook(() => useTasks())
+
+    expect(result.current.loadError).toBe(true)
+    expect(result.current.tasks).toEqual([])
+  })
+
+  it('adds a new task to the front of the list and persists it', () => {
+    const { result } = renderHook(() => useTasks())
+    const newTask = makeTask({ id: 'new-task' })
 
     act(() => {
-      result.current.addTask(NEW_TASK)
+      result.current.addTask(newTask)
     })
 
-    expect(result.current.tasks[0]).toEqual(NEW_TASK)
-    expect(result.current.tasks).toHaveLength(INITIAL_TASKS.length + 1)
+    expect(result.current.tasks[0]).toEqual(newTask)
+    expect(tasksApi.getTasks()).toEqual([newTask])
   })
 
-  it('updates an existing task in place', () => {
+  it('updates an existing task in place and persists it', () => {
+    const existingTask = makeTask({ id: 'existing-task', title: 'Original' })
+    tasksApi.createTask(existingTask)
     const { result } = renderHook(() => useTasks())
-    const updatedTask: TaskData = {
-      ...INITIAL_TASKS[0],
-      title: 'Updated title',
-    }
+    const updatedTask = { ...existingTask, title: 'Updated' }
 
     act(() => {
       result.current.updateTask(updatedTask)
     })
 
-    expect(result.current.tasks).toHaveLength(INITIAL_TASKS.length)
-    expect(
-      result.current.tasks.find((task) => task.id === updatedTask.id),
-    ).toEqual(updatedTask)
+    expect(result.current.tasks).toEqual([updatedTask])
+    expect(tasksApi.getTasks()).toEqual([updatedTask])
+  })
+
+  it('deletes a task and persists it', () => {
+    const existingTask = makeTask({ id: 'existing-task' })
+    tasksApi.createTask(existingTask)
+    const { result } = renderHook(() => useTasks())
+
+    act(() => {
+      result.current.deleteTask(existingTask.id)
+    })
+
+    expect(result.current.tasks).toEqual([])
+    expect(tasksApi.getTasks()).toEqual([])
   })
 })

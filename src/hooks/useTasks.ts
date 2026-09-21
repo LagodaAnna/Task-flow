@@ -1,59 +1,55 @@
 import { useState } from 'react'
-import { PRIORITY, STATUS, type TaskData } from '../components/Tasks/taskTypes'
+import * as tasksApi from '../services/tasksApi'
+import type { TaskData } from '../components/Tasks/taskTypes'
 
-export const INITIAL_TASKS: TaskData[] = [
-  {
-    id: 'prepare-presentation',
-    title: 'Prepare presentation',
-    description: 'Presentation for client',
-    dueDate: '24 Aug 2026',
-    priority: PRIORITY.HIGH,
-    status: STATUS.IN_PROGRESS,
-    createdAt: '2026-08-20T09:00:00.000Z',
-  },
-  {
-    id: 'review-pull-request',
-    title: 'Review pull request',
-    description: 'Check auth flow changes',
-    dueDate: '25 Aug 2026',
-    priority: PRIORITY.MEDIUM,
-    status: STATUS.TODO,
-    createdAt: '2026-08-19T09:00:00.000Z',
-  },
-  {
-    id: 'update-dependencies',
-    title: 'Update dependencies',
-    description: 'Upgrade frontend packages',
-    dueDate: '27 Aug 2026',
-    priority: PRIORITY.LOW,
-    status: STATUS.DONE,
-    createdAt: '2026-08-18T09:00:00.000Z',
-  },
-  {
-    id: 'write-release-notes',
-    title: 'Write release notes',
-    description: 'Summarize v1 changes',
-    dueDate: '29 Aug 2026',
-    priority: PRIORITY.MEDIUM,
-    status: STATUS.TODO,
-    createdAt: '2026-08-17T09:00:00.000Z',
-  },
-]
+type TasksLoadState = {
+  tasks: TaskData[]
+  loadError: boolean
+}
+
+function loadInitialState(): TasksLoadState {
+  try {
+    return { tasks: tasksApi.getTasks(), loadError: false }
+  } catch {
+    return { tasks: [], loadError: true }
+  }
+}
 
 export function useTasks() {
-  const [tasks, setTasks] = useState<TaskData[]>(INITIAL_TASKS)
+  const [state, setState] = useState<TasksLoadState>(loadInitialState)
 
   function addTask(task: TaskData) {
-    setTasks((current) => [task, ...current])
+    setState((current) => ({ ...current, tasks: [task, ...current.tasks] }))
+    try {
+      tasksApi.createTask(task)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function updateTask(task: TaskData) {
-    setTasks((current) => current.map((existing) => (existing.id === task.id ? task : existing)))
+    setState((current) => ({
+      ...current,
+      tasks: current.tasks.map((existing) => (existing.id === task.id ? task : existing)),
+    }))
+    try {
+      tasksApi.updateTask(task)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function deleteTask(taskId: string) {
-    setTasks((current) => current.filter((task) => task.id !== taskId))
+    setState((current) => ({
+      ...current,
+      tasks: current.tasks.filter((task) => task.id !== taskId),
+    }))
+    try {
+      tasksApi.deleteTask(taskId)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  return { tasks, addTask, updateTask, deleteTask }
+  return { tasks: state.tasks, loadError: state.loadError, addTask, updateTask, deleteTask }
 }

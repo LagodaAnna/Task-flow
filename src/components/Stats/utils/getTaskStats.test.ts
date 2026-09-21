@@ -1,18 +1,5 @@
 import { getTaskStats } from './getTaskStats'
-import type { TaskData } from '../../Tasks/taskTypes'
-
-function makeTask(overrides: Partial<TaskData>): TaskData {
-  return {
-    id: 'id',
-    title: 'title',
-    description: '',
-    dueDate: '',
-    priority: 'Low',
-    status: 'To do',
-    createdAt: '2026-01-01T00:00:00.000Z',
-    ...overrides,
-  }
-}
+import { makeTask } from '../../../test/utils/makeTask'
 
 describe('getTaskStats', () => {
   it('counts total, in-progress, and completed tasks', () => {

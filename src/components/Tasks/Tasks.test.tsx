@@ -1,21 +1,44 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Tasks from './Tasks'
-import { INITIAL_TASKS } from '../../hooks/useTasks'
+import { makeTask } from '../../test/utils/makeTask'
+import type { TaskData } from './taskTypes'
 
-const TASK_TITLES = [
-  'Prepare presentation',
-  'Review pull request',
-  'Update dependencies',
-  'Write release notes',
+const SAMPLE_TASKS: TaskData[] = [
+  makeTask({
+    id: 'prepare-presentation',
+    title: 'Prepare presentation',
+    priority: 'High',
+    status: 'In progress',
+  }),
+  makeTask({
+    id: 'review-pull-request',
+    title: 'Review pull request',
+    priority: 'Medium',
+    status: 'To do',
+  }),
+  makeTask({
+    id: 'update-dependencies',
+    title: 'Update dependencies',
+    priority: 'Low',
+    status: 'Done',
+  }),
+  makeTask({
+    id: 'write-release-notes',
+    title: 'Write release notes',
+    priority: 'Medium',
+    status: 'To do',
+  }),
 ]
+
+const TASK_TITLES = SAMPLE_TASKS.map((task) => task.title)
 
 const BADGE_LABELS = ['High', 'Medium', 'Low', 'In progress', 'To do', 'Done']
 
 function renderTasks() {
   return render(
     <Tasks
-      tasks={INITIAL_TASKS}
+      tasks={SAMPLE_TASKS}
       hasTasks={true}
       onAddTask={() => {}}
       onEditTask={() => {}}

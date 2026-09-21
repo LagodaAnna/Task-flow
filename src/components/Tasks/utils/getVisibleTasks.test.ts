@@ -1,19 +1,6 @@
 import { getVisibleTasks, ALL_STATUSES, ALL_PRIORITIES, SORT } from './getVisibleTasks'
 import type { TaskFiltersState } from './getVisibleTasks'
-import type { TaskData } from '../taskTypes'
-
-function makeTask(overrides: Partial<TaskData>): TaskData {
-  return {
-    id: 'id',
-    title: 'title',
-    description: '',
-    dueDate: '',
-    priority: 'Low',
-    status: 'To do',
-    createdAt: '2026-01-01T00:00:00.000Z',
-    ...overrides,
-  }
-}
+import { makeTask } from '../../../test/utils/makeTask'
 
 const baseFilters: TaskFiltersState = {
   search: '',
