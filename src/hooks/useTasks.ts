@@ -19,36 +19,39 @@ export function useTasks() {
   const [state, setState] = useState<TasksLoadState>(loadInitialState)
 
   function addTask(task: TaskData) {
-    setState((current) => ({ ...current, tasks: [task, ...current.tasks] }))
     try {
       tasksApi.createTask(task)
     } catch (error) {
       console.error(error)
+      return
     }
+    setState((current) => ({ ...current, tasks: [task, ...current.tasks] }))
   }
 
   function updateTask(task: TaskData) {
-    setState((current) => ({
-      ...current,
-      tasks: current.tasks.map((existing) => (existing.id === task.id ? task : existing)),
-    }))
     try {
       tasksApi.updateTask(task)
     } catch (error) {
       console.error(error)
+      return
     }
+    setState((current) => ({
+      ...current,
+      tasks: current.tasks.map((existing) => (existing.id === task.id ? task : existing)),
+    }))
   }
 
   function deleteTask(taskId: string) {
-    setState((current) => ({
-      ...current,
-      tasks: current.tasks.filter((task) => task.id !== taskId),
-    }))
     try {
       tasksApi.deleteTask(taskId)
     } catch (error) {
       console.error(error)
+      return
     }
+    setState((current) => ({
+      ...current,
+      tasks: current.tasks.filter((task) => task.id !== taskId),
+    }))
   }
 
   return { tasks: state.tasks, loadError: state.loadError, addTask, updateTask, deleteTask }

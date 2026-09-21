@@ -73,4 +73,53 @@ describe('useTasks', () => {
     expect(result.current.tasks).toEqual([])
     expect(tasksApi.getTasks()).toEqual([])
   })
+
+  it('does not update state when persisting a new task fails', () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(tasksApi, 'createTask').mockImplementation(() => {
+      throw new Error('write failed')
+    })
+    const { result } = renderHook(() => useTasks())
+
+    act(() => {
+      result.current.addTask(makeTask({ id: 'new-task' }))
+    })
+
+    expect(result.current.tasks).toEqual([])
+    vi.restoreAllMocks()
+  })
+
+  it('does not update state when persisting an update fails', () => {
+    const existingTask = makeTask({ id: 'existing-task', title: 'Original' })
+    tasksApi.createTask(existingTask)
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(tasksApi, 'updateTask').mockImplementation(() => {
+      throw new Error('write failed')
+    })
+    const { result } = renderHook(() => useTasks())
+
+    act(() => {
+      result.current.updateTask({ ...existingTask, title: 'Updated' })
+    })
+
+    expect(result.current.tasks).toEqual([existingTask])
+    vi.restoreAllMocks()
+  })
+
+  it('does not update state when persisting a delete fails', () => {
+    const existingTask = makeTask({ id: 'existing-task' })
+    tasksApi.createTask(existingTask)
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(tasksApi, 'deleteTask').mockImplementation(() => {
+      throw new Error('write failed')
+    })
+    const { result } = renderHook(() => useTasks())
+
+    act(() => {
+      result.current.deleteTask(existingTask.id)
+    })
+
+    expect(result.current.tasks).toEqual([existingTask])
+    vi.restoreAllMocks()
+  })
 })
