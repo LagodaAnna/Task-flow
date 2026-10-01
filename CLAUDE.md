@@ -1,240 +1,75 @@
 ## Project
 
-TaskFlow is a small React + TypeScript application used for learning and practicing
-modern frontend development and AI-assisted development workflows.
+TaskFlow is a small React + TypeScript app (Vite, Tailwind CSS, ESLint) used for
+practicing modern frontend and AI-assisted development. Keep it simple, readable,
+and close to production-quality React, without unnecessary abstractions.
 
-The project should stay simple, readable, and close to production-quality React code
-without unnecessary abstractions.
-
----
-
-## Tech Stack
-
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- ESLint
-
-Do not introduce new libraries or dependencies unless explicitly requested.
+Do not add libraries or dependencies unless explicitly requested.
 
 ---
 
-## General Development Rules
+## Scope
 
-### Keep changes scoped
-
-Implement only what was explicitly requested.
-
-Do not:
-
-- refactor unrelated code
-- rename unrelated files or components
-- introduce additional features
-- change architecture without a clear reason
-- install dependencies without approval
-
-Prefer the smallest change that correctly satisfies the task.
-
----
+- Implement only what was requested, with the smallest correct change.
+- Do not refactor, rename, or restructure unrelated code.
+- Do not implement future-ticket behavior just because the UI suggests it
+  (a visible button does not imply its behavior is in scope).
+- Ticket requirements belong to the ticket or its design spec, not to this file.
 
 ## Before Editing
 
-For tasks that involve multiple files, architecture decisions, or non-trivial changes:
+For multi-file, architectural, or non-trivial changes: inspect the relevant files,
+explain the current implementation briefly, propose a plan with the files you expect
+to create or modify, and wait for approval before editing.
 
-1. Inspect the relevant existing files.
-2. Explain the current implementation briefly.
-3. Propose an implementation plan.
-4. List the files you expect to create or modify.
-5. Wait for approval before editing.
-
-For very small and explicitly requested changes, a full planning phase is not necessary.
-
-If the user explicitly says not to modify files, perform analysis only.
+Small, explicit changes need no plan. If told not to modify files, analyze only.
 
 ---
 
-## React Guidelines
+## Conventions
 
-Prefer:
-
-- functional components
-- clear component boundaries
-- derived values instead of duplicated state
-- controlled inputs when state is required
-- semantic HTML
-- simple composition
-
-Avoid:
-
-- unnecessary state
-- unnecessary `useEffect`
-- premature memoization
-- unnecessary `useMemo` or `useCallback`
-- unnecessary wrapper components
-- components created only to reduce line count
-
-Use React state only for values that actually change and affect rendering.
-
-Do not store values in state when they can be derived from existing props or state.
-
----
-
-## TypeScript Guidelines
-
-Avoid `any`.
-
-Prefer:
-
-- explicit domain types when they improve clarity
-- union types for finite sets of values
-- type narrowing
-- type guards when runtime validation is required
-- utility types such as `Pick`, `Omit`, and `Partial` when they express relationships
-  between existing types
-
-Avoid type assertions (`as`) when the value can reasonably be narrowed or validated.
-
-Prefer deriving related types from an existing source type instead of duplicating
-the same property definitions.
-
-Use `import type` for type-only imports when appropriate.
-
----
-
-## Component Design
-
-Create a separate component when it:
-
-- represents a meaningful UI concept
-- is reused
-- has its own responsibility
-- makes a parent component substantially easier to understand
-- use one-folder-per-component structure consistently
-  , `src/components/<Name>/<Name>.tsx`.
-
-Do not split components mechanically.
-
-For this project's size, prefer a small and understandable component tree over
-complex architectural patterns.
-
----
-
-## Accessibility
-
-Use semantic HTML whenever possible.
-
-Requirements:
-
-- interactive actions must use appropriate native elements such as `<button>`
-- form controls must have accessible labels
-- images must have appropriate `alt` text
-- icon-only buttons must have accessible names
-- preserve keyboard accessibility
-- preserve visible focus states
-
-Do not use clickable `<div>` or `<span>` elements when a semantic interactive
-element is appropriate.
-
----
-
-## Responsive UI
-
-When a design specification is provided, treat its breakpoint definitions and
-responsive behavior as the source of truth.
-
-Do not infer new breakpoints when they are explicitly defined in the design spec.
-
-Reference screenshots represent example viewport sizes, not breakpoint boundaries.
-
-Implement layouts so they work across the full ranges between reference viewport sizes.
-
----
+- Components live in `src/components/<Name>/<Name>.tsx` (one folder per component).
+- Derive values instead of storing them in state; use state only for values that
+  change and affect rendering.
+- Derive related types from an existing source type (`Pick`, `Omit`, `Partial`)
+  instead of duplicating properties.
+- Use `import type` for type-only imports.
+- Keep visible focus states, and give icon-only buttons accessible names.
 
 ## Design Files
 
-When a design package exists, inspect its documentation and assets before implementing UI.
+When a design package exists, read it before implementing UI:
 
-Treat:
-
-- `DESIGN_SPEC.md` as the primary human-readable design specification
-- `design-tokens.json` as the source for exact design values
-- preview images as visual references
-- provided SVG assets as reusable assets
-
-Do not redraw or replace provided assets unless explicitly requested.
-
-If the preview appears to conflict with the written specification, report the conflict
-before making assumptions.
+- `DESIGN_SPEC.md` is the primary specification; its breakpoints and responsive
+  behavior are the source of truth. Do not infer other breakpoints.
+- `design-tokens.json` holds the exact values.
+- Preview images are visual references only, and show example viewport sizes, not
+  breakpoint boundaries. Layouts must work across the full range between them.
+- Use the provided SVG assets; do not redraw them.
+- If a preview conflicts with the written spec, report the conflict instead of
+  assuming.
 
 ---
 
-## Scope Control
+## Testing and Verification
 
-Requirements for an individual ticket belong to that ticket or its design specification,
-not permanently to this file.
+When adding or changing user-facing behavior, add or update tests that check
+observable behavior. Prefer accessible queries such as `getByRole`. No snapshot tests
+unless requested.
 
-Do not implement future-ticket functionality merely because the UI suggests it.
-
-For example, a visible button does not imply that its behavior should be implemented
-unless the current task requires it.
-
----
-
-## Verification
-
-After completing any implementation task, always run:
+A task is done only when these pass:
 
 - `npm run lint`
 - `npm run build`
 - `npm run test:run`
 
-All three checks must pass before considering the task complete.
+A Stop hook (`.claude/hooks/turn-guard.sh`) runs them automatically when files changed
+during the turn. If one fails, fix the cause; do not suppress errors or weaken tests.
+Report any failure you cannot resolve within the requested scope.
 
-If a check fails:
-
-- investigate and fix failures caused by the current changes;
-- do not suppress errors or weaken tests just to make the checks pass;
-- report any failure that cannot be resolved without changing the requested scope.
-
-When implementing or changing user-facing behavior:
-
-- add or update relevant tests when appropriate;
-- test observable behavior rather than implementation details;
-- prefer accessible queries such as `getByRole`;
-- do not add snapshot tests unless explicitly requested.
-
-After verification, report:
-
-- files changed
-- what was implemented
-- verification commands executed
-- any remaining warnings or limitations
-
----
+Final report: files changed, what was implemented, and any remaining warnings.
 
 ## Git
 
-Do not commit, push, create branches, or create pull requests unless explicitly requested.
-
-Do not modify Git history.
-
-Before presenting a completed implementation, review the diff and make sure unrelated
-changes were not introduced.
-
----
-
-## Working Style
-
-Optimize for code that a frontend developer can easily read, review, and maintain.
-
-When multiple implementations are possible, prefer:
-
-1. correctness
-2. simplicity
-3. readability
-4. type safety
-5. accessibility
-6. consistency with the existing project
-
-Avoid overengineering.
+Do not commit, push, create branches or PRs, or modify history unless explicitly
+requested.
