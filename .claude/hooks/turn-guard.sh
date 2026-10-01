@@ -50,6 +50,8 @@ tree_hash() {
 }
 
 snapshot() {
+  # Drop state from sessions that were last used over two days ago.
+  find "$tmp" -maxdepth 1 -name 'taskflow-turn-*' -type f -mtime +1 -exec rm -f {} + 2>/dev/null
   tree_hash >"$state" 2>/dev/null || rm -f "$state"
   exit 0
 }
